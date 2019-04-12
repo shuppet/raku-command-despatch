@@ -16,10 +16,12 @@ class Command::Despatch {
     #| Takes a string and returns 1) an array of words that were recognised as commands and subcommands; 2) the remaining string
     multi method parse($str, %table) {
         sub split-str($str) {
+            return $str unless $str and $str ~~ / \s /;
             return ~<<($str ~~ / ^ (\S+) [\s+ (.*)]? $ /);
         }
 
-        my (@commands, $args = $str);
+        my @commands;
+        my $args = $str; 
         my ($command, $rest) = split-str($str);
 
         if %table{$command} -> $despatch {
@@ -28,9 +30,11 @@ class Command::Despatch {
             @commands.append(|$subcommands);
             $args = $remaining;
         }
+        elsif %table<_> -> $despatch {
+            @commands.push('_');
+        }
 
         return (@commands, $args);
-
     }
 
     #| Stops recursion when we hit a leaf in the table. Returns the input as the "rest", i.e. the args to the command we were looking at.
