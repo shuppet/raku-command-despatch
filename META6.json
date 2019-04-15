@@ -5,8 +5,8 @@
     "auth": "github:shuppet",
     "provides": {
         "Command::Despatch": "lib/Command/Despatch.pm6",
-        "Command::Despatch::Command": "lib/Command/Command.pm6",
-        "X::Command::Despatch::InvalidCommand": "lib/Command/Command.pm6"
+        "Command::Despatch::Command": "lib/Command/Despatch/Command.pm6",
+        "X::Command::Despatch::InvalidCommand": "lib/Command/Despatch/Command.pm6"
     },
     "name": "Command::Despatch",
     "description": "Perl 6 module for parsing generic commands and arguments from a hash table.",
