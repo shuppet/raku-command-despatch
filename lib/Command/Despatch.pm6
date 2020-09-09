@@ -1,5 +1,3 @@
-use Command::Despatch::Command;
-
 class X::Command::Despatch::InvalidCommand is Exception {
     has $.message;
 };

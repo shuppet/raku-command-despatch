@@ -1,7 +1,6 @@
 #!perl6
 
 use Command::Despatch;
-use Command::Despatch::Command;
 
 my $d = Command::Despatch.new(
     command-table => {
