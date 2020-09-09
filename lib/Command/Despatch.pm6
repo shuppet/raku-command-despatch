@@ -18,7 +18,7 @@ class Command::Despatch {
     #! Parses the string with the stored command-table. See parse($str, %table)
     method parse($str) {
         #| Takes a string and returns 1) an array of words that were recognised as commands and subcommands; 2) the remaining string
-        my multi sub parse(\self, $str, %sub-table) {
+        my multi sub parse($str, %sub-table) {
             sub split-str($str) {
                 return $str unless $str and $str ~~ / \s /;
                 return ~<<($str ~~ / ^ (\S+) [\s+ (.*)]? $ /);
@@ -42,7 +42,7 @@ class Command::Despatch {
                         }
                     }
 
-                    self.&parse($rest, $despatch);
+                    parse($rest, $despatch);
                 }
 
                 @commands.append(|$subcommands);
@@ -59,7 +59,7 @@ class Command::Despatch {
         }
 
         #| Stops recursion when we hit a leaf in the table. Returns the input as the "rest", i.e. the args to the command we were looking at.
-        my multi sub parse(\self, $str, Callable $code) {
+        my multi sub parse($str, Callable $code) {
             return ([], $str);
         }
 
@@ -71,7 +71,7 @@ class Command::Despatch {
                     ).throw;
                 }
             }
-            return self.&parse($str, %.command-table);
+            return parse($str, %.command-table);
         }
 
     }
@@ -81,7 +81,7 @@ class Command::Despatch {
         X::Command::Despatch::InvalidCommand.new(:message("No command to run!")).throw
             unless @commands;
 
-        my multi sub despatch(\self, @commands is copy, %sub-table, $args, :$payload) {
+        my multi sub despatch(@commands is copy, %sub-table, $args, :$payload) {
             my $command = @commands.shift // '_';
             my $to-do = %sub-table{$command};
 
@@ -108,17 +108,17 @@ class Command::Despatch {
                     }
                 }
 
-                return self.&despatch(@commands, $to-do, $args, :$payload);
+                return despatch(@commands, $to-do, $args, :$payload);
             }
         }
 
-        my multi sub despatch(\self, @commands, Callable $code, $args, :$payload) {
+        my multi sub despatch(@commands, Callable $code, $args, :$payload) {
             $code(Command::Despatch::Command.new(
                 :$args, :$payload
             ));
         }
 
-        self.&despatch(@commands, %.command-table, $args, :$payload);
+        despatch(@commands, %.command-table, $args, :$payload);
     }
 
     method run($str, :$payload) {
