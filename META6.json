@@ -1,17 +1,21 @@
 {
     "license": "BSD-3-Clause",
     "repo-type": "git",
-    "source-url": "git://github.com/shuppet/p6-command-despatch.git",
+    "source-url": "git://git@github.com/shuppet/raku-command-despatch.git",
+    "support": {
+        "bugtracker": "https://github.com/shuppet/raku-command-despatch/issues",
+        "source": "https://github.com/shuppet/raku-command-despatch.git"
+    },
     "auth": "github:shuppet",
     "provides": {
-        "Command::Despatch": "lib/Command/Despatch.pm6",
-        "Command::Despatch::Command": "lib/Command/Despatch/Command.pm6",
-        "X::Command::Despatch::InvalidCommand": "lib/Command/Despatch/Command.pm6"
+        "Command::Despatch": "lib/Command/Despatch.rakumod",
+        "Command::Despatch::Command": "lib/Command/Despatch.rakumod",
+        "X::Command::Despatch::InvalidCommand": "lib/Command/Despatch.rakumod"
     },
     "name": "Command::Despatch",
-    "description": "Perl 6 module for parsing generic commands and arguments from a hash table.",
+    "description": "Raku module for parsing generic commands and arguments from a hash table.",
     "perl": "6.d",
-    "version": "0.0.1",
+    "version": "0.2",
     "authors": [
         "Alastair 'altreus' Douglas <altreus@altre.us>",
         "Kane 'kawaii' Valentine <kane@cute.im>"
